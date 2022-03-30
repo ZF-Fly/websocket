@@ -1,20 +1,20 @@
 #自定义配置
-#arb:
+#zf:
 #  service:
 #    name: wsxch-restapi
 #    port: 8407
 #eureka:
 #  instance:
-#    instance-id: ${arb.service.url}:${arb.service.name}:${arb.service.port}
-#    hostname: ${arb.service.url}
-#    ip-address: ${arb.service.url}
+#    instance-id: ${zf.service.url}:${zf.service.name}:${zf.service.port}
+#    hostname: ${zf.service.url}
+#    ip-address: ${zf.service.url}
 #    prefer-ip-address: true
 #    lease-renewal-interval-in-seconds: 5
 #    lease-expiration-duration-in-seconds: 10
 #  client:
 #    healthcheck: enabled
 #    service-url:
-#      defaultZone: http://${arb.eureka.url}/eureka/
+#      defaultZone: http://${zf.eureka.url}/eureka/
 
 server:
   port: 9088
@@ -22,12 +22,12 @@ server:
     context-path: /v3
 spring:
   rabbitmq:
-    host: ${arb.rabbitmq.url}
-    port: ${arb.rabbitmq.port}
-    username: ${arb.rabbitmq.username}
-    password: ${arb.rabbitmq.password}
+    host: ${zf.rabbitmq.url}
+    port: ${zf.rabbitmq.port}
+    username: ${zf.rabbitmq.username}
+    password: ${zf.rabbitmq.password}
     ssl:
-      enabled: ${arb.rabbitmq.ssl.enabled}
+      enabled: ${zf.rabbitmq.ssl.enabled}
       algorithm: TLSv1.2
   redis:
     jedis:
@@ -41,13 +41,13 @@ spring:
         testWhileIdle: true                         #在空闲时检查有效性, 默认false
     primary:
       writer:
-        database: ${arb.redis.primary.writer.database}
-        hostName: ${arb.redis.primary.writer.url}
-        port: ${arb.redis.primary.writer.port}
+        database: ${zf.redis.primary.writer.database}
+        hostName: ${zf.redis.primary.writer.url}
+        port: ${zf.redis.primary.writer.port}
       reader:
-        database: ${arb.redis.primary.reader.database}
-        hostName: ${arb.redis.primary.reader.url}
-        port: ${arb.redis.primary.reader.port}
+        database: ${zf.redis.primary.reader.database}
+        hostName: ${zf.redis.primary.reader.url}
+        port: ${zf.redis.primary.reader.port}
   servlet:
     multipart:
       enabled: true
