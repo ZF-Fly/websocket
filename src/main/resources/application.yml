@@ -1,0 +1,100 @@
+#自定义配置
+#arb:
+#  service:
+#    name: wsxch-restapi
+#    port: 8407
+#eureka:
+#  instance:
+#    instance-id: ${arb.service.url}:${arb.service.name}:${arb.service.port}
+#    hostname: ${arb.service.url}
+#    ip-address: ${arb.service.url}
+#    prefer-ip-address: true
+#    lease-renewal-interval-in-seconds: 5
+#    lease-expiration-duration-in-seconds: 10
+#  client:
+#    healthcheck: enabled
+#    service-url:
+#      defaultZone: http://${arb.eureka.url}/eureka/
+
+server:
+  port: 9088
+  servlet:
+    context-path: /v3
+spring:
+  rabbitmq:
+    host: ${arb.rabbitmq.url}
+    port: ${arb.rabbitmq.port}
+    username: ${arb.rabbitmq.username}
+    password: ${arb.rabbitmq.password}
+    ssl:
+      enabled: ${arb.rabbitmq.ssl.enabled}
+      algorithm: TLSv1.2
+  redis:
+    jedis:
+      pool:
+        MaxTotal: 50                                #控制一个pool可分配多少个jedis实例,用来替换上面的spring.redis.maxActive,如果是jedis 2.4以后用该属性
+        minIdle: 1                                  #最小空闲数
+        maxIdle: 5                                  #最大空闲数
+        maxWaitMillis: 5000                         #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+        testOnBorrow: true                          #是否在从池中取出连接前进行检验,如果检验失败,则从池中去除连接并尝试取出另一个
+        testOnReturn: true                          #返回性校验
+        testWhileIdle: true                         #在空闲时检查有效性, 默认false
+    primary:
+      writer:
+        database: ${arb.redis.primary.writer.database}
+        hostName: ${arb.redis.primary.writer.url}
+        port: ${arb.redis.primary.writer.port}
+      reader:
+        database: ${arb.redis.primary.reader.database}
+        hostName: ${arb.redis.primary.reader.url}
+        port: ${arb.redis.primary.reader.port}
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 0
+      max-file-size: -1
+      max-request-size: -1
+encrypt:
+  key: Rj0O9LgL^4@S2gMI
+---
+spring:
+  profiles: local
+arb:
+  service:
+    name: wsxch-restapi
+    port: 8407
+  database:
+    writer:
+      url: develop-aze-8.mysql.singapore.rds.aliyuncs.com
+    reader:
+      url: develop-aze-8.mysql.singapore.rds.aliyuncs.com
+    schema: oam
+    username: panda_admin
+    password: Arb@8888
+  rabbitmq:
+    url: 8.214.46.181
+    username: arbfintech
+    password: Arb@8888
+    port: 5672
+    ssl:
+      enabled: false
+      algorithm: TLSv1.2
+  redis:
+    primary:
+      writer:
+        database: 2
+        url: develop-aze8.redis.singapore.rds.aliyuncs.com
+        port: 6379
+      reader:
+        database: 2
+        url: develop-aze8.redis.singapore.rds.aliyuncs.com
+        port: 6379
+    slave:
+      writer:
+        database: 1
+        url: develop-aze8.redis.singapore.rds.aliyuncs.com
+        port: 6379
+      reader:
+        database: 1
+        url: develop-aze8.redis.singapore.rds.aliyuncs.com
+        port: 6379
