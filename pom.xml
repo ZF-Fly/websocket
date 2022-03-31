@@ -82,7 +82,6 @@
             <version>30.1-jre</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
